@@ -1,36 +1,36 @@
-
+"""import os
+t=os.path.abspath("text.html")
+print(t)
+v=os.rename(t, "text.txt")
+print(v)"""
 import pathlib
 import os
-import json
-import yaml
-import csv
-import xmltodict
-from dict2xml import dict2xml
-import json
-import xmltodict
-
-
-def conversion_nom_fichier(chaine, counter):
+counter=1
+def conversion_nom_fichier(chaine,counter):
     original_path = pathlib.Path(chaine)
-    v = chaine.split(".")[-1]
-    mon_fichier = "mon_fichier" + str(counter) + "." + v
+    v=chaine.split(".")[-1]
+    mon_fichier="mon_fichier"+str(counter)+"."+v
     new_path = original_path.rename(mon_fichier)
-    cheminabs = os.path.abspath(new_path)
+    cheminabs =os.path.abspath(new_path)
     return new_path
-
-
+    
 def extension(chaine):
-    extension = chaine.split(".")[-1]
+    extension=chaine.split(".")[-1]
     return extension
-
-
+    
 def verification(chaine):
-    liste = ["csv", "json", "yaml", "xml"]
+    liste=["csv","json","yaml","xml"]
     if chaine in liste:
         return True
     else:
         return False
+        
+        
+import json
 
+import yaml
+import csv
+import xmltodict
 
 def ymal_to_dic(chaine):
     with open(chaine) as f:
@@ -43,16 +43,19 @@ def json_to_dict(chaine):
         dic = json.load(f)
     return dic
 
-
 def csv_to_dict(chaine):
     document = open(chaine)
     document1 = csv.DictReader(document)
     return document1
 
+from dict2xml import dict2xml
 
 def conversion_dict_xml(dictionnaire):
     xml = dict2xml(dictionnaire)
-    return xml
+    print(xml)
+
+import json
+import xmltodict
 
 
 def xml_vers_dic(monfichier):
@@ -60,8 +63,7 @@ def xml_vers_dic(monfichier):
     dic = xmltodict.parse(fichier.read())
     dic = json.loads(json.dumps(dic))
     return dic
-
-
+    
 def dict_vers_json(dictionnaire):
     with open('data.json', 'w') as fichier:
         json.dump(dictionnaire, fichier)
@@ -69,25 +71,18 @@ def dict_vers_json(dictionnaire):
         monfichier = json.load(fichier)
     return monfichier
 
-
 def dictionnaire_vers_yaml(dictionnaire):
-    with open("data.yaml", 'w') as f:
+    with open("fall.yaml", 'w') as f:
         yaml.dump(dictionnaire, f, default_flow_style=False, sort_keys=False)
-
-
+        
 def dictionnaie_vers_csv(dictionnaire):
-    liste = []
-    for i in dictionnaire.keys():
+    liste=[]
+    for i in dic.keys():
         liste.append(i)
-    with open('data.csv', 'w') as f:
+    with open('di3p.csv', 'w') as f:
         v = csv.DictWriter(f, fieldnames=liste)
         v.writeheader()
         v.writerow(dictionnaire)
-
-
-counter = 1
-text = input("veillez saisir le nom de votre fichier:")
-# formatage nom du fichier
 
 
 
