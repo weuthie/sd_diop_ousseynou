@@ -8,6 +8,34 @@ import xmltodict
 from dict2xml import dict2xml
 import json
 import xmltodict
+def MENU_CSV():
+    print("             MENU                 ")
+    print("1: permet convertire le fichier en xml")
+    print("2:permet convertire le fichier en yaml ou yml")
+    print("3:permet convertire le fichier en json ")
+    print("0:pour quitter")
+
+def MENU_XML():
+    print("             MENU                 ")
+    print("1: permet convertire le fichier en csv ")
+    print("2:permet convertire le fichier en json ")
+    print("3:permet convertire le fichier yaml ou yml ")
+    print("0:pour quitter")
+
+def MENU_JSON():
+    print("             MENU                 ")
+    print("1: permet convertire le fichier en csv ")
+    print("2:permet convertire le fichier  en yaml ou yml")
+    print("3:permet convertire le fichier  en xml")
+    print("0:pour quitter")
+
+def MENU_YAML():
+    print("             MENU                 ")
+    print("1: permet convertire le fichier en csv")
+    print("2:permet convertire le fichier en json ")
+    print("3:permet convertire le fichier en xml")
+    print("0:pour quitter")
+
 
 
 def conversion_nom_fichier(chaine, counter):
@@ -25,7 +53,7 @@ def extension(chaine):
 
 
 def verification(chaine):
-    liste = ["csv", "json", "yaml", "xml"]
+    liste = ["csv", "json", "yaml", "xml", "yml"]
     if chaine in liste:
         return True
     else:
@@ -47,12 +75,17 @@ def json_to_dict(chaine):
 def csv_to_dict(chaine):
     document = open(chaine)
     document1 = csv.DictReader(document)
-    return document1
+    for d in document1:
+        dictt= json.dumps(d)
+    return dictt
 
 
 def conversion_dict_xml(dictionnaire):
     xml = dict2xml(dictionnaire)
-    return xml
+    data3=open("data3.xml","w")
+    data3.write(xml)
+    data3.close()
+
 
 
 def xml_vers_dic(monfichier):
@@ -88,6 +121,118 @@ def dictionnaie_vers_csv(dictionnaire):
 counter = 1
 text = input("veillez saisir le nom de votre fichier:")
 # formatage nom du fichier
+extension(text)
+if verification(extension(text)):
+    print("le format choisie est valide ")
+else:
+    print("le format n'est pas valide veillez changer de format")
+if extension(text) == "csv":
+    fichier = csv_to_dict(text)
+    while True:
+        MENU_CSV()
+        try:
+            a = int(input("donne un nombre entre 0 et 3:"))
+            if a in range(0,4):
+                if(a==0):
+                    print("BYEBYE")
+                    break
+                if(a==1):
+                    conversion_dict_xml(fichier)
+                    print("transformation fait vas dans le repertoire ou se trouve le fichier")
+                    break
+
+                elif(a==2):
+                    dictionnaire_vers_yaml(fichier)
+                    print("transformation fait vas dans le repertoire ou se trouve le fichier")
+                    break
+                elif(a==3):
+                    dict_vers_json(fichier)
+                    print("transformation fait vas dans le repertoire ou se trouve le fichier")
+                    break
+            else:
+                print("erreur")
+        except Exception as e:
+            print("VOUS AVEZ UNE ERREUR")
+elif extension(text) == "json":
+    fichier = json_to_dict(text)
+    while True:
+        MENU_JSON()
+        try:
+            a = int(input("donne un nombre entre 0 et 3:"))
+            if a in range(0,4):
+                if(a==0):
+                    print("BYEBYE")
+                    break
+                if(a==1):
+                    dictionnaie_vers_csv(fichier)
+                    print("transformation fait vas dans le repertoire ou se trouve le fichier")
+                    break
+                elif(a==2):
+                    dictionnaire_vers_yaml(fichier)
+                    print("transformation fait vas dans le repertoire ou se trouve le fichier")
+                    break
+                elif(a==3):
+                    conversion_dict_xml(fichier)
+                    print("transformation fait vas dans le repertoire ou se trouve le fichier")
+                    break
+            else:
+                print("erreur")
+        except Exception as e:
+            print("VOUS AVEZ UNE ERREUR")
+elif extension(text) == "yaml" or extension(text) == "yml":
+    fichier = ymal_to_dic(text)
+    while True:
+        MENU_YAML()
+        try:
+            a = int(input("donne un nombre entre 0 et 3:"))
+            if a in range(0,4):
+                if(a==0):
+                    print("BYEBYE")
+                    break
+                if(a==1):
+                    dictionnaie_vers_csv(fichier)
+                    print("transformation fait vas dans le repertoire ou se trouve le fichier")
+                    break
+                elif(a==2):
+                    dict_vers_json(fichier)
+                    print("transformation fait vas dans le repertoire ou se trouve le fichier")
+                    break
+                elif(a==3):
+                    conversion_dict_xml(fichier)
+                    print("transformation fait vas dans le repertoire ou se trouve le fichier")
+                    break
+            else:
+                print("erreur")
+        except Exception as e:
+            print("VOUS AVEZ UNE ERREUR")
+elif extension(text) == "xml":
+    ficher=xml_vers_dic(text)
+    while True:
+        MENU_XML()
+        try:
+            a = int(input("donne un nombre entre 0 et 3:"))
+            if a in range(0,4):
+                if(a==0):
+                    print("BYEBYE")
+                    break
+                if(a==1):
+                    dictionnaie_vers_csv(ficher)
+                    print("transformation fait vas dans le repertoire ou se trouve le fichier")
+                    break
+                elif(a==2):
+                    dict_vers_json(ficher)
+                    print("transformation fait vas dans le repertoire ou se trouve le fichier")
+                    break
+                elif(a==3):
+                    dictionnaire_vers_yaml(ficher)
+                    print("transformation fait vas dans le repertoire ou se trouve le fichier")
+                    break
+            else:
+                print("erreur")
+        except Exception as e:
+            print("VOUS AVEZ UNE ERREUR")
+
+
 
 
 
